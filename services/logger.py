@@ -1,12 +1,18 @@
-import logging
-import os
+from datetime import datetime
 
-os.makedirs("logs", exist_ok=True)
 
-logging.basicConfig(
-    filename="logs/app.log",
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(message)s"
-)
+class Logger:
 
-logger = logging.getLogger("POE2Assistant")
+    @staticmethod
+    def info(message):
+
+        print(
+            f"[{datetime.now()}] INFO : {message}"
+        )
+
+    @staticmethod
+    def error(message):
+
+        print(
+            f"[{datetime.now()}] ERROR : {message}"
+        )

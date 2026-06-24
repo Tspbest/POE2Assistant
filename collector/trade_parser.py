@@ -1,13 +1,13 @@
 import json
 
 
-class Config:
+class TradeParser:
 
     @staticmethod
-    def load():
+    def load(path):
 
         with open(
-            "config/settings.json",
+            path,
             "r",
             encoding="utf-8"
         ) as file:

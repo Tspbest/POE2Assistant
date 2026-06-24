@@ -1,13 +1,13 @@
 import json
 
 
-class Config:
+class JSONLoader:
 
     @staticmethod
-    def load():
+    def load(filename):
 
         with open(
-            "config/settings.json",
+            filename,
             "r",
             encoding="utf-8"
         ) as file:

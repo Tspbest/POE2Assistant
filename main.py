@@ -1,62 +1,80 @@
 from models.character import Character
-def show_title():
-    print()
-    print("=" * 50)
-    print("          POE2 Assistant")
-    print("=" * 50)
+from services.exporter import Exporter
+from services.scorer import Scorer
+from services.recommendation import Recommendation
 
+character = Character(
+    "MamaZang",
+    100,
+    "Monk",
+    3500,
+    1200,
+    95,
+    90
+)
 
-def create_character():
-    name = input("Character Name : ")
-    level = input("Level : ")
-    job = input("Class : ")
+print(character.to_dict())
 
-    player = Character(name, level, job)
+score = Scorer.calculate(character)
 
-    player.show()
-    player.save()
+print("Build Score")
+print(score)
 
-    name = input("mamaznag : ")
-    level = input("100 : ")
-    job = input("Monk : ")
+print("Recommendation")
+print(Recommendation.recommend(score))
 
-    print()
-    print("Character Created!")
-    print("Name :", name)
-    print("Level :", level)
-    print("Class :", job)
+from models.build import Build
+from services.analyzer import Analyzer
+from services.recommender import Recommender
 
+build = Build(
+    "MamaZang",
+    100,
+    "Monk",
+    3500,
+    1200,
+    95,
+    90
+)
 
-while True:
+Exporter.export(
+    build,
+    "output/build.json"
+)
 
-    show_title()
+print("Build exported")
 
-    print("1. Create Character")
-    print("2. Load Character")
-    print("3. About")
-    print("4. Exit")
+from services.importer import Importer
 
-    choice = input("Select : ")
+loaded = Importer.load(
+    "output/build.json"
+)
 
-    if choice == "1":
-        create_character()
+print()
+print("Imported Build")
+print(loaded.to_dict())
 
-    elif choice == "2":
+from services.csv_exporter import CSVExporter
 
-        player = Character.load()
+builds = [
 
-        if player:
-            player.show()
+    build,
 
-    elif choice == "3":
-        print()
-        print("About POE2 Assistant")
-        print("Version 0.0.1")
-        print("Created by : MaMaZang")
+    Build(
+        "Storm",
+        98,
+        "Sorceress",
+        2800,
+        2500,
+        99,
+        70
+    )
 
-    elif choice == "4":
-        print("Good Bye")
-        break
+]
 
-    else:
-        print("Invalid Menu")
+CSVExporter.export(
+    builds,
+    "output/builds.csv"
+)
+
+print("CSV Export Complete")

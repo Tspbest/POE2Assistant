@@ -1,20 +1,11 @@
 import requests
 
-
 class APIClient:
 
     def get(self, url):
-
         try:
             response = requests.get(url, timeout=10)
+            return response
 
-            if response.status_code == 200:
-                return response.json()
-
-            print(f"HTTP Error : {response.status_code}")
+        except requests.RequestException:
             return None
-
-        except Exception as error:
-            print("Error :", error)
-            return None
-        

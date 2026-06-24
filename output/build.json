@@ -1,0 +1,9 @@
+{
+    "name": "MamaZang",
+    "level": 100,
+    "job": "Monk",
+    "damage": 3500,
+    "defense": 1200,
+    "life": 95,
+    "mana": 90
+}

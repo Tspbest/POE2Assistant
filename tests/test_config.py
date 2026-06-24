@@ -1,8 +1,8 @@
 from config.config import Config
 
-settings = Config.load()
 
-print(settings)
+def test_load_config():
 
-print(settings["project_name"])
-print(settings["version"])
+    settings = Config.load()
+
+    assert settings["project_name"] == "POE2 Assistant"

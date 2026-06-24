@@ -1,58 +1,34 @@
-import json
-
 class Character:
-    
-    def __init__(self, name, level, job):
+
+    def __init__(
+        self,
+        name,
+        level,
+        job,
+        life,
+        mana,
+        damage,
+        defense
+    ):
 
         self.name = name
         self.level = level
         self.job = job
+        self.life = life
+        self.mana = mana
+        self.damage = damage
+        self.defense = defense
 
-    def show(self):
+    def to_dict(self):
 
-        print()
-        print("Character Information")
-        print("--------------------------")
-        print("Name :", self.name)
-        print("Level :", self.level)
-        print("Class :", self.job)
+        return {
 
-    def save(self):
+            "name": self.name,
+            "level": self.level,
+            "job": self.job,
+            "life": self.life,
+            "mana": self.mana,
+            "damage": self.damage,
+            "defense": self.defense
 
-        data = {
-            "Name": self.name,
-            "Level": self.level,
-            "Class": self.job
         }
-
-        with open("database/character.json", "w") as file:
-
-            json.dump(data, file, indent=4)
-
-        print()
-        print("Character Saved Successfully!")
-
-    @staticmethod
-    def load():
-
-        try:
-
-            with open("database/character.json", "r") as file:
-                data = json.load(file)
-
-            if "Name" not in data:
-                print("No character data found.")
-                return None
-
-            player = Character(
-            data["Name"],
-            data["Level"],
-            data["Class"]
-        )
-
-            return player
-
-        except FileNotFoundError:
-            print("character.json not found")
-            return None
-        

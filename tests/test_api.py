@@ -1,9 +1,15 @@
 from collector.api_client import APIClient
 
-client = APIClient()
+def test_api_get():
+    client = APIClient()
 
-url = "https://httpbin.org/json"
+    response = client.get(
+        "https://jsonplaceholder.typicode.com/todos/1"
+    )
 
-data = client.get(url)
+    assert response is not None
+    assert response.status_code == 200
 
-print(data)
+    data = response.json()
+
+    assert data["id"] == 1
