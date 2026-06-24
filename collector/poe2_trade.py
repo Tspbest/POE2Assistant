@@ -7,10 +7,8 @@ class POE2TradeClient:
 
     def fetch(self, endpoint):
 
-        url = f"{self.BASE_URL}/{endpoint}"
-
         response = requests.get(
-            url,
+            f"{self.BASE_URL}/{endpoint}",
             headers={
                 "User-Agent": "POE2Assistant/1.0"
             },

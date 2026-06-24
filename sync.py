@@ -1,10 +1,37 @@
+import sqlite3
+
 from collector.poe2_trade import POE2TradeClient
-from database.sync_database import SyncDatabase
 
 client = POE2TradeClient()
+data = client.fetch("leagues")
 
-items = client.fetch("items")
+conn = sqlite3.connect("poe2.db")
+cursor = conn.cursor()
 
-SyncDatabase.save_items(items)
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS leagues(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    league_id TEXT UNIQUE,
+    name TEXT,
+    realm TEXT
+)
+""")
 
-print("Items synced")
+for league in data["result"]:
+    cursor.execute(
+        """
+        INSERT OR REPLACE INTO leagues
+        (league_id, name, realm)
+        VALUES (?, ?, ?)
+        """,
+        (
+            league["id"],
+            league["text"],
+            league["realm"]
+        )
+    )
+
+conn.commit()
+conn.close()
+
+print("Sync Complete")

@@ -10,5 +10,5 @@ response = requests.get(
     timeout=10
 )
 
-print(response.status_code)
-print(response.json())
+print("Status:", response.status_code)
+print(response.text[:500])

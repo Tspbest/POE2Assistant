@@ -71,3 +71,24 @@ def items(limit: int = 20, offset: int = 0):
         "offset": offset,
         "items": data[offset:offset + limit]
     }
+
+
+@app.get("/leagues")
+def leagues():
+    import sqlite3
+
+    conn = sqlite3.connect("poe2.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT league_id, name, realm
+        FROM leagues
+    """)
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    return {
+        "count": len(rows),
+        "leagues": rows
+    }
