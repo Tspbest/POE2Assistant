@@ -1,0 +1,6 @@
+{
+    "project_name": "POE2 Assistant",
+    "version": "0.1.0",
+    "debug": true,
+    "timeout": 10
+}
